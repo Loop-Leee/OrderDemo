@@ -1,0 +1,14 @@
+# Redis 相关文件
+*.aof
+*.rdb
+nodes.conf
+dump.rdb
+appendonly.aof
+
+## 日志文件
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+target/

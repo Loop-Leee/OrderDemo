@@ -1,6 +1,10 @@
 package com.lloop.orderdemo.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.lloop.orderdemo.mapper.OrderMapper;
+import com.lloop.orderdemo.model.entity.UserOrder;
 import com.lloop.orderdemo.service.OrderService;
+import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +13,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 @Service
-public class OrderServiceImpl implements OrderService {
+public class OrderServiceImpl extends ServiceImpl<OrderMapper, UserOrder> implements OrderService {
 
     private static final String STOCK_KEY_PREFIX = "coupon:stock:";
     private static final String USER_KEY_PREFIX = "coupon:users:";
