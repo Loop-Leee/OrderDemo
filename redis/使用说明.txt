@@ -1,5 +1,5 @@
- # 进入compose 文件所在目录
- cd redis-cluster
+# 进入compose 文件所在目录
+cd redis-cluster
 
 # 启动容器
 docker-compose up -d
@@ -11,12 +11,19 @@ docker exec -it redis-7101 redis-cli --cluster create \
   172.18.0.14:7104 172.18.0.15:7105 172.18.0.16:7106 \
   --cluster-replicas 1
 
-
+docker exec -it redis-7101 redis-cli --cluster create \
+  127.0.0.1:7101 127.0.0.1:7102 127.0.0.1:7103 \
+  127.0.0.1:7104 127.0.0.1:7105 127.0.0.1:7106 \
+  --cluster-replicas 1
 
 # 使用前验证集群状态（如果看到三个slave三个master则启动成功）
-docker exec -it redis-7100 redis-cli -p 7100 cluster nodes
+docker exec -it redis-7101 redis-cli -p 7101 cluster nodes
 
 
- # 使用完后清理容器
- docker-compose down -v
+# 使用完后清理容器
+docker-compose down -v
 
+
+
+# 如果配置错误,先清空原来的文件
+find . -type f \( -name "nodes.conf" -o -name "appendonly.aof" -o -name "dump.rdb" \) -delete
