@@ -1,0 +1,81 @@
+version: '3.8'
+
+services:
+  redis-7101:
+    image: redis:6.2
+    container_name: redis-7101
+    ports:
+      - "7101:7101"
+    volumes:
+      - ./cluster-config/7101:/data
+    command: redis-server /data/redis.conf
+    networks:
+      redis-cluster-net:
+        ipv4_address: 172.18.0.11
+
+  redis-7102:
+    image: redis:6.2
+    container_name: redis-7102
+    ports:
+      - "7102:7102"
+    volumes:
+      - ./cluster-config/7102:/data
+    command: redis-server /data/redis.conf
+    networks:
+      redis-cluster-net:
+        ipv4_address: 172.18.0.12
+
+  redis-7103:
+    image: redis:6.2
+    container_name: redis-7103
+    ports:
+      - "7103:7103"
+    volumes:
+      - ./cluster-config/7103:/data
+    command: redis-server /data/redis.conf
+    networks:
+      redis-cluster-net:
+        ipv4_address: 172.18.0.13
+
+  redis-7104:
+    image: redis:6.2
+    container_name: redis-7104
+    ports:
+      - "7104:7104"
+    volumes:
+      - ./cluster-config/7104:/data
+    command: redis-server /data/redis.conf
+    networks:
+      redis-cluster-net:
+        ipv4_address: 172.18.0.14
+
+  redis-7105:
+    image: redis:6.2
+    container_name: redis-7105
+    ports:
+      - "7105:7105"
+    volumes:
+      - ./cluster-config/7105:/data
+    command: redis-server /data/redis.conf
+    networks:
+      redis-cluster-net:
+        ipv4_address: 172.18.0.15
+
+  redis-7106:
+    image: redis:6.2
+    container_name: redis-7106
+    ports:
+      - "7106:7106"
+    volumes:
+      - ./cluster-config/7106:/data
+    command: redis-server /data/redis.conf
+    networks:
+      redis-cluster-net:
+        ipv4_address: 172.18.0.16
+
+networks:
+  redis-cluster-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.18.0.0/16

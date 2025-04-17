@@ -1,0 +1,22 @@
+ # 进入compose 文件所在目录
+ cd redis-cluster
+
+# 启动容器
+docker-compose up -d
+
+
+# 进入容器，建立集群之间的连接（目标是让容器之间互联）
+docker exec -it redis-7101 redis-cli --cluster create \
+  172.18.0.11:7101 172.18.0.12:7102 172.18.0.13:7103 \
+  172.18.0.14:7104 172.18.0.15:7105 172.18.0.16:7106 \
+  --cluster-replicas 1
+
+
+
+# 使用前验证集群状态（如果看到三个slave三个master则启动成功）
+docker exec -it redis-7100 redis-cli -p 7100 cluster nodes
+
+
+ # 使用完后清理容器
+ docker-compose down -v
+
